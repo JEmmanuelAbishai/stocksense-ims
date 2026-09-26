@@ -123,7 +123,25 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const [operations, setOperations] = useState<Operation[]>(() => {
     const saved = localStorage.getItem(OPERATIONS_KEY);
-    return saved ? JSON.parse(saved) : INITIAL_OPERATIONS;
+    if (saved) {
+      try {
+        const parsed: Operation[] = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const hasInternal = parsed.some(o => o.type === 'internal');
+          const hasAdjustment = parsed.some(o => o.type === 'adjustment');
+          if (!hasInternal || !hasAdjustment) {
+            const missing = INITIAL_OPERATIONS.filter(
+              init => !parsed.some(p => p.id === init.id)
+            );
+            return [...parsed, ...missing];
+          }
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Failed to parse saved operations', e);
+      }
+    }
+    return INITIAL_OPERATIONS;
   });
 
   const [ledger, setLedger] = useState<StockLedgerEntry[]>(() => {

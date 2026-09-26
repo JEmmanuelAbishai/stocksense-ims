@@ -374,6 +374,126 @@ export const INITIAL_OPERATIONS: Operation[] = [
     items: [
       { productId: 'prod-stacking-bin', productName: 'Stacking Bin — Medium', sku: 'BIN-MD-42', unit: 'Units', quantity: 20, pickedQuantity: 0 }
     ]
+  },
+
+  // INTERNAL TRANSFERS
+  {
+    id: 'op-int-001',
+    code: 'WH/INT/0001',
+    type: 'internal',
+    status: 'ready',
+    date: 'Sep 26, 11:15',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-overflow',
+    destinationWarehouseId: 'wh-northdock',
+    destinationLocationId: 'loc-main-stock',
+    creatorName: 'Dexter Morgan',
+    createdBy: 'usr-1',
+    notes: 'Active pick-face replenishment on Rack A1 from bulk overflow.',
+    items: [
+      { productId: 'prod-stacking-bin', productName: 'Stacking Bin — Medium', sku: 'BIN-MD-42', unit: 'Units', quantity: 24 }
+    ]
+  },
+  {
+    id: 'op-int-002',
+    code: 'WH/INT/0002',
+    type: 'internal',
+    status: 'waiting',
+    date: 'Sep 26, 14:00',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-receiving',
+    destinationWarehouseId: 'wh-northdock',
+    destinationLocationId: 'loc-overflow',
+    creatorName: 'Jamie Wu',
+    createdBy: 'usr-2',
+    notes: 'Putaway clear wrap pallets from Bay 02 staging to overflow bulk storage.',
+    items: [
+      { productId: 'prod-pallet-wrap', productName: 'Pallet Wrap — Clear', sku: 'WRP-CLR-18', unit: 'Units', quantity: 12 }
+    ]
+  },
+  {
+    id: 'op-int-003',
+    code: 'WH/INT/0003',
+    type: 'internal',
+    status: 'done',
+    date: 'Sep 25, 16:30',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-receiving',
+    destinationWarehouseId: 'wh-northdock',
+    destinationLocationId: 'loc-main-stock',
+    creatorName: 'Jamie Wu',
+    createdBy: 'usr-2',
+    notes: 'Fast-moving thermal labels transferred directly to aisle 4 picking bins.',
+    items: [
+      { productId: 'prod-thermal-labels', productName: 'Thermal Label Roll 4×6', sku: 'LBL-46-500', unit: 'Units', quantity: 16 }
+    ]
+  },
+  {
+    id: 'op-int-004',
+    code: 'WH/INT/0004',
+    type: 'internal',
+    status: 'done',
+    date: 'Sep 25, 14:00',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-overflow',
+    destinationWarehouseId: 'wh-northdock',
+    destinationLocationId: 'loc-bay-04',
+    creatorName: 'Dexter Morgan',
+    createdBy: 'usr-1',
+    notes: 'Staged empty heavy pallets at dispatch dock door 4.',
+    items: [
+      { productId: 'prod-heavy-pallet', productName: 'Heavy-Duty Pallet 48×40', sku: 'PLT-HD-4840', unit: 'Units', quantity: 10 }
+    ]
+  },
+
+  // INVENTORY ADJUSTMENTS & PHYSICAL CYCLE COUNTS
+  {
+    id: 'op-adj-001',
+    code: 'WH/ADJ/0001',
+    type: 'adjustment',
+    status: 'done',
+    date: 'Sep 26, 08:30',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-main-stock',
+    creatorName: 'Dexter Morgan',
+    createdBy: 'usr-1',
+    adjustmentReason: 'Routine physical cycle count verification',
+    notes: 'Aisle 01 routine cycle count. Count verified and reconciled against ledger balance.',
+    items: [
+      { productId: 'prod-stacking-bin', productName: 'Stacking Bin — Medium', sku: 'BIN-MD-42', unit: 'Units', quantity: 116 }
+    ]
+  },
+  {
+    id: 'op-adj-002',
+    code: 'WH/ADJ/0002',
+    type: 'adjustment',
+    status: 'done',
+    date: 'Sep 25, 17:15',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-receiving',
+    creatorName: 'Jamie Wu',
+    createdBy: 'usr-2',
+    adjustmentReason: 'Damaged carton write-off',
+    notes: 'Damaged packaging during forklift transport in receiving dock. Written off.',
+    items: [
+      { productId: 'prod-nitrile-gloves', productName: 'Nitrile Work Gloves — L', sku: 'PPE-GLV-L', unit: 'Units', quantity: 36 }
+    ]
+  },
+  {
+    id: 'op-adj-003',
+    code: 'WH/ADJ/0003',
+    type: 'adjustment',
+    status: 'ready',
+    date: 'Sep 26, 10:00',
+    sourceWarehouseId: 'wh-northdock',
+    sourceLocationId: 'loc-overflow',
+    creatorName: 'Dexter Morgan',
+    createdBy: 'usr-1',
+    adjustmentReason: 'Quarterly physical stock verification',
+    notes: 'Scheduled high-bay rack C3 physical verification and count reconciliation.',
+    items: [
+      { productId: 'prod-corrugated-carton', productName: 'Corrugated Carton 18×12', sku: 'BOX-1812-K', unit: 'Units', quantity: 310 }
+    ]
   }
 ];
 
