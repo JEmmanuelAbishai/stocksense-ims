@@ -26,4 +26,4 @@ A modular, real-time Inventory Management System designed to digitize stock-rela
 1. Clone the repository:
    ```bash
    git clone https://github.com/SiddarthReddyK/StockSense.git
-   cd StockSense
+  
