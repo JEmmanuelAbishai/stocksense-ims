@@ -1,0 +1,6 @@
+{
+  "name": "StockSense - Modular Inventory Management System",
+  "description": "Enterprise-grade Inventory Management System (IMS) streamlining incoming receipts, outgoing deliveries, internal transfers, and live audit-grade stock ledgers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

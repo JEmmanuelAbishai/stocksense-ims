@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  html, body {
+    font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f1ea;
+    color: #1c2a27;
+  }
+
+  code, pre, .font-mono, .tabular-nums {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom Scrollbar to fit StockSense pine-green & warm sand theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2d554d #e9e4d9;
+}
+
+/* Chrome, Edge, Safari, Webkit */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ebe6db;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d554d;
+  border-radius: 8px;
+  border: 1.5px solid #ebe6db;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1e3a34;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
