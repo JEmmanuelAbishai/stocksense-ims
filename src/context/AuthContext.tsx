@@ -60,7 +60,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.email) {
-          // If stored user was the old Alex account, automatically upgrade name to Dexter Morgan
           if (parsed.id === 'usr-1' || parsed.email.includes('alex.morgan')) {
             return {
               ...parsed,
@@ -74,7 +73,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Failed to parse stored auth user', e);
       }
     }
-    // Default to Dexter Morgan (Demo Account)
     return INITIAL_USERS[0];
   });
 
@@ -94,7 +92,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const clean = identifier.trim().toLowerCase();
     if (!clean) return false;
 
-    // Look for matching user by email, exact name, or slug
     const user = users.find(u => {
       const email = u.email.toLowerCase();
       const name = u.name.toLowerCase();
@@ -126,13 +123,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanEmail = email.trim().toLowerCase();
     const cleanName = name.trim();
 
-    // Check if user already exists
     const existing = users.find(u => u.email.toLowerCase() === cleanEmail);
     if (existing) {
       const updatedUser: User = {
         ...existing,
         name: cleanName || existing.name,
-        role, // role directly determined through signup
+        role,
         title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
         warehouseId: warehouseId || existing.warehouseId || 'wh-northdock'
       };
@@ -145,7 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: `usr-${Date.now()}`,
       name: cleanName,
       email: cleanEmail,
-      role, // directly determined through registration!
+      role,
       title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
       warehouseId: warehouseId || 'wh-northdock',
       avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'
@@ -162,7 +158,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const switchRole = (newRole: UserRole) => {
     if (!currentUser) return;
-    // Only the Dexter Morgan demo account has the switching option for demonstration purposes!
     if (!checkIsDexterAccount(currentUser)) {
       console.warn('Role switching is reserved for the Dexter Morgan demo account.');
       return;
