@@ -3,8 +3,8 @@ import { Product, Warehouse, Operation, StockLedgerEntry, ProductCategory, User 
 export const INITIAL_USERS: User[] = [
   {
     id: 'usr-1',
-    name: 'Alex Morgan',
-    email: 'alex.morgan@stocksense.io',
+    name: 'Dexter Morgan',
+    email: 'dexter.morgan@stocksense.io',
     role: 'inventory_manager',
     title: 'Operations lead',
     warehouseId: 'wh-northdock',
@@ -36,7 +36,7 @@ export const INITIAL_WAREHOUSES: Warehouse[] = [
     code: 'WH-ND',
     name: 'North Dock Warehouse',
     address: '4100 North Harbor Way, Portland, OR 97217',
-    manager: 'Alex Morgan',
+    manager: 'Dexter Morgan',
     maxCapacity: 10000,
     currentOccupancy: 6940,
     capacityUnit: 'units',
@@ -186,7 +186,7 @@ export const INITIAL_OPERATIONS: Operation[] = [
     partnerName: 'Copper & Pine Co.',
     destinationWarehouseId: 'wh-northdock',
     destinationLocationId: 'loc-receiving',
-    creatorName: 'Alex Morgan',
+    creatorName: 'Dexter Morgan',
     createdBy: 'usr-1',
     notes: 'Carrier confirmed Bay 03. Driver will call receiving 15 minutes before arrival. FRT-8821 · Cedar Freight. Vendor Ref: CP-PO-11842',
     items: [
@@ -286,7 +286,7 @@ export const INITIAL_OPERATIONS: Operation[] = [
     partnerName: 'Harbor Stores — East',
     sourceWarehouseId: 'wh-northdock',
     sourceLocationId: 'loc-dispatch',
-    creatorName: 'Alex Morgan',
+    creatorName: 'Dexter Morgan',
     createdBy: 'usr-1',
     notes: 'Delivery address: Harbor Stores — East, 18 Pier Avenue. Customer Ref: HS-E-4481. Route: EAST-04 · Harbor Courier',
     items: [
@@ -392,7 +392,7 @@ export const INITIAL_LEDGER: StockLedgerEntry[] = [
     unit: 'Units',
     balanceAfter: 116,
     operatorId: 'usr-1',
-    operatorName: 'Alex Morgan',
+    operatorName: 'Dexter Morgan',
     reason: 'Inbound receipt putaway'
   },
   {
@@ -409,7 +409,7 @@ export const INITIAL_LEDGER: StockLedgerEntry[] = [
     unit: 'Units',
     balanceAfter: 160,
     operatorId: 'usr-1',
-    operatorName: 'Alex Morgan',
+    operatorName: 'Dexter Morgan',
     reason: 'Inbound receipt putaway'
   },
   {

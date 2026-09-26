@@ -20,7 +20,7 @@ export const AuthModal: React.FC = () => {
 
   const [mode, setMode] = useState<'login' | 'signup' | 'forgot_request' | 'forgot_verify'>('login');
 
-  const [loginId, setLoginId] = useState('alex.morgan');
+  const [loginId, setLoginId] = useState('dexter.morgan');
   const [email, setEmail] = useState('');
   const [signupRole, setSignupRole] = useState<UserRole>('inventory_manager');
   const [password, setPassword] = useState('••••••••••');
@@ -180,7 +180,7 @@ export const AuthModal: React.FC = () => {
                         type="text"
                         value={loginId}
                         onChange={(e) => setLoginId(e.target.value)}
-                        placeholder="alex.morgan or your@email.com"
+                        placeholder="dexter.morgan or your@email.com"
                         className="w-full pl-10 pr-4 py-2.5 bg-white border border-stone-300 rounded-xl text-xs text-[#1c2a27] placeholder:text-stone-400 focus:outline-none focus:border-[#1e3a34] focus:ring-1 focus:ring-[#1e3a34]"
                         required
                       />
@@ -250,13 +250,13 @@ export const AuthModal: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => {
-                          setLoginId('alex.morgan@stocksense.io');
-                          login('alex.morgan@stocksense.io');
+                          setLoginId('dexter.morgan@stocksense.io');
+                          login('dexter.morgan@stocksense.io');
                         }}
                         className="p-2 rounded-xl border border-stone-200 hover:border-[#1e3a34] bg-stone-50/80 text-left transition-all cursor-pointer"
                       >
                         <div className="font-bold text-[11px] text-stone-900 flex items-center justify-between">
-                          <span>Alex Morgan</span>
+                          <span>Dexter Morgan</span>
                           <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded font-semibold">
                             Demo
                           </span>

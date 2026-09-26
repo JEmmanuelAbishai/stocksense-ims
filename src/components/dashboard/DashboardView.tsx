@@ -40,7 +40,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   const isManager = currentUser?.role === 'inventory_manager';
   const currentWh = warehouses[0];
-  const firstName = currentUser?.name?.split(' ')[0] || 'Alex';
+  const firstName = currentUser?.name?.split(' ')[0] || 'Dexter';
 
   // State for floor picking tasks simulation for warehouse staff
   const [completedFloorTasks, setCompletedFloorTasks] = useState<string[]>([]);
