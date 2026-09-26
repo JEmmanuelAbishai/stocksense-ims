@@ -81,7 +81,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             SATURDAY, 26 SEPTEMBER
           </div>
           <h1 className="text-3xl font-extrabold text-[#1c2a27] tracking-tight">
-            Good morning, {firstName}
+            Welcome, {firstName}
           </h1>
           <p className="text-sm text-stone-600 mt-1">
             {currentWh?.name || 'North Dock'} is operating normally. Here’s what needs attention today.
