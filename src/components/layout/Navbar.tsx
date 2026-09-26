@@ -114,17 +114,17 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <div className="hidden sm:block text-right">
             <div className="text-xs font-semibold text-white tracking-tight leading-tight">
-              {currentUser?.name || 'Alex Morgan'}
+              {currentUser?.name || 'Dexter Morgan'}
             </div>
             <div className="text-[10px] text-emerald-200/80 leading-tight">
               {currentUser?.role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff'}
             </div>
           </div>
-          {/* Avatar circle matching Figma AM initials */}
+          {/* Avatar circle matching DM initials */}
           <div className="w-8 h-8 rounded-full bg-[#dcece7] text-[#1e3a34] font-bold text-xs flex items-center justify-center border border-white/30 shadow-xs shrink-0">
             {currentUser?.name
               ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
-              : 'AM'}
+              : 'DM'}
           </div>
         </button>
 

@@ -1,5 +1,6 @@
 
-import { Product, Warehouse, ProductCategory, LocationStock, StockLedgerEntry, User } from '../types/inventory';
+
+import { Product, Warehouse, LocationStock, StockLedgerEntry, User } from '../types/inventory';
 
 export const generateProductSku = (name: string, category: string): string => {
   const prefixCat = category ? category.slice(0, 3).toUpperCase() : 'GEN';

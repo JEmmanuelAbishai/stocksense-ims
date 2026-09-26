@@ -23,7 +23,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const { currentUser, switchRole, logout, isAlexAccount } = useAuth();
+  const { currentUser, switchRole, logout, isDexterAccount } = useAuth();
   const { warehouses, ledger } = useInventory();
 
   if (!isOpen || !currentUser) return null;
@@ -61,7 +61,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             <div className="w-11 h-11 rounded-full bg-[#1e3a34] text-white font-bold text-sm flex items-center justify-center border-2 border-white shadow-xs shrink-0">
               {currentUser.name
                 ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
-                : 'AM'}
+                : 'DM'}
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
@@ -83,8 +83,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             </div>
           </div>
 
-          {/* Role Section: Alex has switching option for demonstration purposes, other accounts have fixed determined roles */}
-          {isAlexAccount ? (
+          {/* Role Section: Dexter has switching option for demonstration purposes, other accounts have fixed determined roles */}
+          {isDexterAccount ? (
             <div className="space-y-2">
               <div className="flex items-center justify-between px-0.5">
                 <span className="text-[11px] font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
@@ -92,7 +92,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <span>Demonstration Role Switcher</span>
                 </span>
                 <span className="text-[10px] text-emerald-800 font-semibold bg-emerald-100/70 px-2 py-0.5 rounded-full">
-                  Alex Demo Account
+                  Dexter Demo Account
                 </span>
               </div>
 
@@ -213,7 +213,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/80 text-[10px] text-stone-500 flex items-start gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
                 <span>
-                  Role was directly determined through your account login credentials. Role switching is reserved for the Alex Morgan demonstration account.
+                  Role was directly determined through your account login credentials. Role switching is reserved for the Dexter Morgan demonstration account.
                 </span>
               </div>
             </div>

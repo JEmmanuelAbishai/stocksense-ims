@@ -5,6 +5,7 @@ import { INITIAL_USERS } from '../data/initialData';
 interface AuthContextType {
   currentUser: User | null;
   isAuthenticated: boolean;
+  isDexterAccount: boolean;
   isAlexAccount: boolean;
   login: (emailOrLoginId: string, password?: string) => Promise<boolean>;
   signup: (name: string, email: string, role: UserRole, warehouseId: string) => Promise<boolean>;
@@ -22,12 +23,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AUTH_STORAGE_KEY = 'stocksense_auth_user_v2';
 const USERS_STORAGE_KEY = 'stocksense_registered_users_v2';
 
-export const checkIsAlexAccount = (user: User | null): boolean => {
+export const checkIsDexterAccount = (user: User | null): boolean => {
   if (!user) return false;
   const name = user.name.toLowerCase();
   const email = user.email.toLowerCase();
-  return user.id === 'usr-1' || name.includes('alex') || email.includes('alex');
+  return (
+    user.id === 'usr-1' ||
+    name.includes('dexter') ||
+    email.includes('dexter') ||
+    name.includes('alex') ||
+    email.includes('alex')
+  );
 };
+
+export const checkIsAlexAccount = checkIsDexterAccount;
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [users, setUsers] = useState<User[]>(() => {
@@ -51,13 +60,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.email) {
+          if (parsed.id === 'usr-1' || parsed.email.includes('alex.morgan')) {
+            return {
+              ...parsed,
+              name: 'Dexter Morgan',
+              email: 'dexter.morgan@stocksense.io'
+            };
+          }
           return parsed;
         }
       } catch (e) {
         console.error('Failed to parse stored auth user', e);
       }
     }
-    // Default to Alex Morgan (Demo Account)
     return INITIAL_USERS[0];
   });
 
@@ -77,7 +92,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const clean = identifier.trim().toLowerCase();
     if (!clean) return false;
 
-    // Look for matching user by email, exact name, or slug
     const user = users.find(u => {
       const email = u.email.toLowerCase();
       const name = u.name.toLowerCase();
@@ -109,13 +123,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanEmail = email.trim().toLowerCase();
     const cleanName = name.trim();
 
-    // Check if user already exists
     const existing = users.find(u => u.email.toLowerCase() === cleanEmail);
     if (existing) {
       const updatedUser: User = {
         ...existing,
         name: cleanName || existing.name,
-        role, // role directly determined through signup
+        role,
         title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
         warehouseId: warehouseId || existing.warehouseId || 'wh-northdock'
       };
@@ -128,7 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: `usr-${Date.now()}`,
       name: cleanName,
       email: cleanEmail,
-      role, // directly determined through registration!
+      role,
       title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
       warehouseId: warehouseId || 'wh-northdock',
       avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'
@@ -145,9 +158,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const switchRole = (newRole: UserRole) => {
     if (!currentUser) return;
-    // Only the Alex Morgan demo account has the switching option for demonstration purposes!
-    if (!checkIsAlexAccount(currentUser)) {
-      console.warn('Role switching is reserved for the Alex Morgan demo account.');
+    if (!checkIsDexterAccount(currentUser)) {
+      console.warn('Role switching is reserved for the Dexter Morgan demo account.');
       return;
     }
 
@@ -198,7 +210,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         currentUser,
         isAuthenticated: !!currentUser,
-        isAlexAccount: checkIsAlexAccount(currentUser),
+        isDexterAccount: checkIsDexterAccount(currentUser),
+        isAlexAccount: checkIsDexterAccount(currentUser),
         login,
         signup,
         logout,
