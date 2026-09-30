@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { InventoryProvider, useInventory } from './context/InventoryContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar, NavTab } from './components/layout/Navbar';
 import { DashboardView } from './components/dashboard/DashboardView';
 import { ProductsView } from './components/products/ProductsView';
@@ -13,7 +14,7 @@ import { TransferDetailView } from './components/operations/TransferDetailView';
 import { AdjustmentsView } from './components/operations/AdjustmentsView';
 import { AdjustmentDetailView } from './components/operations/AdjustmentDetailView';
 import { LedgerView } from './components/ledger/LedgerView';
-import { SettingsView } from './components/Settings/SettingsView';
+import { SettingsView } from './components/settings/SettingsView';
 import { QuickActionModal } from './components/dashboard/QuickActionModal';
 import { ReceiptModal } from './components/operations/ReceiptModal';
 import { DeliveryModal } from './components/operations/DeliveryModal';
@@ -88,7 +89,7 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-[#f4f1ea] text-[#1c2a27] font-sans flex flex-col selection:bg-[#1e3a34] selection:text-white">
+    <div className="min-h-screen w-screen bg-[#f4f1ea] dark:bg-[#0b0f19] text-[#1c2a27] dark:text-slate-100 font-sans flex flex-col selection:bg-[#1e3a34] dark:selection:bg-[#714B67] selection:text-white transition-colors duration-200">
       {/* 1. Top Navbar matching Figma screenshot 4 & 5 */}
       <Navbar
         activeTab={activeTab}
@@ -273,10 +274,12 @@ function MainApp() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <InventoryProvider>
-        <MainApp />
-      </InventoryProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <InventoryProvider>
+          <MainApp />
+        </InventoryProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
