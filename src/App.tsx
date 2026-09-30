@@ -14,7 +14,7 @@ import { TransferDetailView } from './components/operations/TransferDetailView';
 import { AdjustmentsView } from './components/operations/AdjustmentsView';
 import { AdjustmentDetailView } from './components/operations/AdjustmentDetailView';
 import { LedgerView } from './components/ledger/LedgerView';
-import { SettingsView } from './components/settings/SettingsView';
+import { SettingsView } from './components/Settings/SettingsView';
 import { QuickActionModal } from './components/dashboard/QuickActionModal';
 import { ReceiptModal } from './components/operations/ReceiptModal';
 import { DeliveryModal } from './components/operations/DeliveryModal';

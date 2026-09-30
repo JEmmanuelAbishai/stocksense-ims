@@ -33,7 +33,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   onInitiateAdjustment
 }) => {
   const { products, categories, deleteProduct, exportProductsCsv } = useInventory();
-  const { currentUser } = useAuth();
+  const { currentUser, currencySymbol } = useAuth();
   const isManager = currentUser?.role === 'inventory_manager';
 
   const [search, setSearch] = useState('');
@@ -256,12 +256,12 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
 
                       {/* Unit Cost */}
                       <td className="py-4 px-5 text-right font-mono text-stone-700">
-                        ${prod.costPrice.toFixed(2)}
+                        {currencySymbol}{prod.costPrice.toFixed(2)}
                       </td>
 
                       {/* Total Valuation */}
                       <td className="py-4 px-5 text-right font-mono font-bold text-stone-900">
-                        ${valuation.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {currencySymbol}{valuation.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
 
                       {/* Status Badge */}
