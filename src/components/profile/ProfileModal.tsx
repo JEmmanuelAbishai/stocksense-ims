@@ -9,10 +9,13 @@ import {
   Check,
   ArrowRightLeft,
   Boxes,
-  AlertCircle
+  AlertCircle,
+  Globe,
+  Coins
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useInventory } from '../../context/InventoryContext';
+import { COUNTRIES, getCountryByName } from '../../data/countries';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -23,7 +26,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const { currentUser, switchRole, logout, isDexterAccount } = useAuth();
+  const { currentUser, switchRole, logout, isDexterAccount, updateUserCountry, currencySymbol, country } = useAuth();
   const { warehouses, ledger } = useInventory();
 
   if (!isOpen || !currentUser) return null;
@@ -31,6 +34,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   const currentWh = warehouses.find(w => w.id === currentUser.warehouseId);
   const userActivities = ledger.filter(l => l.operatorId === currentUser.id).slice(0, 3);
   const isManager = currentUser.role === 'inventory_manager';
+  const currentCountryConfig = getCountryByName(currentUser.country || country || 'United States');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in duration-150">
@@ -80,6 +84,36 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 <Building2 className="w-3 h-3 text-stone-400" />
                 <span>{currentWh?.name || 'North Dock Facility'}</span>
               </div>
+            </div>
+          </div>
+
+          {/* Country & Currency Setting Card */}
+          <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200/80 space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 font-bold text-stone-800 text-[11px] uppercase tracking-wider">
+                <Globe className="w-3.5 h-3.5 text-[#1e3a34]" />
+                <span>Country & Currency Setting</span>
+              </div>
+              <span className="text-[10px] font-mono font-bold bg-[#e5f0ec] text-[#1e3a34] px-2 py-0.5 rounded-full border border-emerald-200">
+                Active: {currencySymbol} ({currentCountryConfig.currencyCode})
+              </span>
+            </div>
+
+            <div>
+              <label className="block text-[11px] text-stone-500 mb-1">
+                Assigned Region (controls currency across inventory):
+              </label>
+              <select
+                value={currentCountryConfig.name}
+                onChange={(e) => updateUserCountry(e.target.value)}
+                className="w-full bg-white border border-stone-300 rounded-lg px-2.5 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-[#1e3a34] cursor-pointer font-medium"
+              >
+                {COUNTRIES.map(c => (
+                  <option key={c.code} value={c.name}>
+                    {c.flag} {c.name} — {c.currencyName}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

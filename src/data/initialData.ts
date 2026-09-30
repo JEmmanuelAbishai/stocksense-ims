@@ -8,7 +8,10 @@ export const INITIAL_USERS: User[] = [
     role: 'inventory_manager',
     title: 'Operations lead',
     warehouseId: 'wh-northdock',
-    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'
+    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg',
+    country: 'United States',
+    currencyCode: 'USD',
+    currencySymbol: '$'
   },
   {
     id: 'usr-2',
@@ -17,7 +20,10 @@ export const INITIAL_USERS: User[] = [
     role: 'warehouse_staff',
     title: 'Warehouse Specialist',
     warehouseId: 'wh-northdock',
-    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'
+    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg',
+    country: 'United States',
+    currencyCode: 'USD',
+    currencySymbol: '$'
   }
 ];
 

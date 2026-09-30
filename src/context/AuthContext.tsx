@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole } from '../types/inventory';
 import { INITIAL_USERS } from '../data/initialData';
+import { COUNTRIES, getCountryByName } from '../data/countries';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -8,11 +9,22 @@ interface AuthContextType {
   isDexterAccount: boolean;
   isAlexAccount: boolean;
   login: (emailOrLoginId: string, password?: string) => Promise<boolean>;
-  signup: (name: string, email: string, role: UserRole, warehouseId: string) => Promise<boolean>;
+  signup: (
+    name: string,
+    email: string,
+    role: UserRole,
+    warehouseId: string,
+    country?: string
+  ) => Promise<boolean>;
   logout: () => void;
   switchRole: (role: UserRole) => void;
   switchUser: (userId: string) => void;
+  updateUserCountry: (countryName: string) => void;
   availableUsers: User[];
+  country: string;
+  currencyCode: string;
+  currencySymbol: string;
+  formatCurrency: (amount: number, options?: { decimals?: number }) => string;
   // OTP Password Reset Flow
   requestPasswordResetOtp: (email: string) => Promise<{ success: boolean; simulatedOtp: string }>;
   verifyOtpAndResetPassword: (email: string, otp: string, newPassword: string) => Promise<boolean>;
@@ -60,6 +72,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.email) {
+          // If stored user was the old Alex account, automatically upgrade name to Dexter Morgan
           if (parsed.id === 'usr-1' || parsed.email.includes('alex.morgan')) {
             return {
               ...parsed,
@@ -73,6 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Failed to parse stored auth user', e);
       }
     }
+    // Default to Dexter Morgan (Demo Account)
     return INITIAL_USERS[0];
   });
 
@@ -92,6 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const clean = identifier.trim().toLowerCase();
     if (!clean) return false;
 
+    // Look for matching user by email, exact name, or slug
     const user = users.find(u => {
       const email = u.email.toLowerCase();
       const name = u.name.toLowerCase();
@@ -118,19 +133,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     name: string,
     email: string,
     role: UserRole,
-    warehouseId: string
+    warehouseId: string,
+    countryName = 'United States'
   ): Promise<boolean> => {
     const cleanEmail = email.trim().toLowerCase();
     const cleanName = name.trim();
+    const countryCfg = getCountryByName(countryName);
 
+    // Check if user already exists
     const existing = users.find(u => u.email.toLowerCase() === cleanEmail);
     if (existing) {
       const updatedUser: User = {
         ...existing,
         name: cleanName || existing.name,
-        role,
+        role, // role directly determined through signup
         title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
-        warehouseId: warehouseId || existing.warehouseId || 'wh-northdock'
+        warehouseId: warehouseId || existing.warehouseId || 'wh-northdock',
+        country: countryCfg.name,
+        currencyCode: countryCfg.currencyCode,
+        currencySymbol: countryCfg.currencySymbol
       };
       setUsers(prev => prev.map(u => (u.id === existing.id ? updatedUser : u)));
       setCurrentUser(updatedUser);
@@ -141,15 +162,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: `usr-${Date.now()}`,
       name: cleanName,
       email: cleanEmail,
-      role,
+      role, // directly determined through registration!
       title: role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff',
       warehouseId: warehouseId || 'wh-northdock',
-      avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'
+      avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg',
+      country: countryCfg.name,
+      currencyCode: countryCfg.currencyCode,
+      currencySymbol: countryCfg.currencySymbol
     };
 
     setUsers(prev => [...prev, newUser]);
     setCurrentUser(newUser);
     return true;
+  };
+
+  const updateUserCountry = (countryName: string) => {
+    if (!currentUser) return;
+    const countryCfg = getCountryByName(countryName);
+    const updated: User = {
+      ...currentUser,
+      country: countryCfg.name,
+      currencyCode: countryCfg.currencyCode,
+      currencySymbol: countryCfg.currencySymbol
+    };
+    setCurrentUser(updated);
+    setUsers(prev => prev.map(u => (u.id === updated.id ? updated : u)));
+  };
+
+  const currencySymbol = currentUser?.currencySymbol || '$';
+  const currencyCode = currentUser?.currencyCode || 'USD';
+  const userCountry = currentUser?.country || 'United States';
+
+  const formatCurrency = (amount: number, options: { decimals?: number } = {}) => {
+    const dec = options.decimals !== undefined ? options.decimals : 2;
+    const numStr = (amount || 0).toLocaleString(undefined, {
+      minimumFractionDigits: dec,
+      maximumFractionDigits: dec
+    });
+    return `${currencySymbol}${numStr}`;
   };
 
   const logout = () => {
@@ -158,6 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const switchRole = (newRole: UserRole) => {
     if (!currentUser) return;
+    // Only the Dexter Morgan demo account has the switching option for demonstration purposes!
     if (!checkIsDexterAccount(currentUser)) {
       console.warn('Role switching is reserved for the Dexter Morgan demo account.');
       return;
@@ -217,7 +268,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         logout,
         switchRole,
         switchUser,
+        updateUserCountry,
         availableUsers: users,
+        country: userCountry,
+        currencyCode,
+        currencySymbol,
+        formatCurrency,
         requestPasswordResetOtp,
         verifyOtpAndResetPassword
       }}
