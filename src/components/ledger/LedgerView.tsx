@@ -57,13 +57,13 @@ export const LedgerView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pt-2">
         <div>
-          <div className="text-[11px] font-bold tracking-widest text-[#1e3a34] uppercase mb-1">
+          <div className="text-[11px] font-bold tracking-widest text-[#1e3a34] dark:text-[#d89ec5] uppercase mb-1">
             AUDIT JOURNAL
           </div>
-          <h1 className="text-3xl font-extrabold text-[#1c2a27] tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#1c2a27] dark:text-[#f8ecf5] tracking-tight">
             Move History & Ledger
           </h1>
-          <p className="text-sm text-stone-600 mt-1">
+          <p className="text-sm text-stone-600 dark:text-slate-400 mt-1">
             Immutable transaction records of all receipts, deliveries, internal transfers, and physical counts.
           </p>
         </div>
@@ -90,15 +90,15 @@ export const LedgerView: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-1 p-1 bg-stone-200/70 rounded-xl text-xs">
+        <div className="flex items-center gap-1 p-1 bg-stone-200/70 dark:bg-[#172033] dark:border dark:border-slate-800 rounded-xl text-xs">
           {(['all', 'receipt', 'delivery', 'internal', 'adjustment'] as const).map(ot => (
             <button
               key={ot}
               onClick={() => setTypeFilter(ot)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer capitalize ${
                 typeFilter === ot
-                  ? 'bg-white text-[#1c2a27] font-semibold shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-white text-[#1c2a27] dark:bg-[#714B67] dark:text-white font-semibold shadow-xs'
+                  : 'text-stone-600 hover:text-stone-900 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
               }`}
             >
               {ot === 'all' ? 'All Ledger' : ot === 'internal' ? 'Transfers' : ot === 'adjustment' ? 'Adjustments' : ot === 'receipt' ? 'Receipts' : 'Deliveries'}

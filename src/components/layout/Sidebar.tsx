@@ -40,7 +40,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenProfile,
   onOpenTeam
 }) => {
-  const { currentUser, logout, switchRole } = useAuth();
+  const { currentUser, logout, switchRole, isDexterAccount } = useAuth();
   const { lowStockAlerts, kpis } = useInventory();
 
   const isManager = currentUser?.role === 'inventory_manager';
@@ -268,12 +268,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={onOpenProfile}
             className="flex items-center gap-2.5 text-left p-1.5 rounded-lg hover:bg-slate-900 transition-colors flex-1 min-w-0 cursor-pointer"
           >
-            <img
-              src={currentUser?.avatarUrl || '/src/assets/images/stocksense_user_avatar_1790401027960.jpg'}
-              alt={currentUser?.name || 'User'}
-              referrerPolicy="no-referrer"
-              className="w-8 h-8 rounded-full object-cover border border-slate-700 shrink-0"
-            />
+            {isDexterAccount ? (
+              <img
+                src="/avatar.png"
+                alt="Dexter Morgan"
+                referrerPolicy="no-referrer"
+                className="w-8 h-8 rounded-full object-cover border border-slate-700 shrink-0 bg-slate-800"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = '/avatar.jpeg';
+                  }
+                }}
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-slate-800 text-slate-200 font-bold text-xs flex items-center justify-center border border-slate-700 shrink-0">
+                {currentUser?.name
+                  ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+                  : 'OP'}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <div className="text-xs font-semibold text-white truncate">{currentUser?.name || 'Guest User'}</div>
               <div className="text-[11px] text-slate-400 truncate">{currentUser?.email}</div>

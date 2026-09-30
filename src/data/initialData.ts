@@ -8,7 +8,7 @@ export const INITIAL_USERS: User[] = [
     role: 'inventory_manager',
     title: 'Operations lead',
     warehouseId: 'wh-northdock',
-    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg',
+    avatarUrl: '/avatar.png',
     country: 'United States',
     currencyCode: 'USD',
     currencySymbol: '$'
@@ -20,7 +20,6 @@ export const INITIAL_USERS: User[] = [
     role: 'warehouse_staff',
     title: 'Warehouse Specialist',
     warehouseId: 'wh-northdock',
-    avatarUrl: '/src/assets/images/stocksense_user_avatar_1790401027960.jpg',
     country: 'United States',
     currencyCode: 'USD',
     currencySymbol: '$'

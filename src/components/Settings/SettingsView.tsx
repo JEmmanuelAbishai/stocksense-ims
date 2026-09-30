@@ -294,13 +294,13 @@ export const SettingsView: React.FC = () => {
       {/* Settings Header */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pt-2">
         <div>
-          <div className="text-[11px] font-bold tracking-widest text-[#1e3a34] uppercase mb-1">
+          <div className="text-[11px] font-bold tracking-widest text-[#1e3a34] dark:text-[#d89ec5] uppercase mb-1">
             FACILITIES & ZONES
           </div>
-          <h1 className="text-3xl font-extrabold text-[#1c2a27] tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#1c2a27] dark:text-[#f8ecf5] tracking-tight">
             Warehouse Architecture
           </h1>
-          <p className="text-sm text-stone-600 mt-1">
+          <p className="text-sm text-stone-600 dark:text-slate-400 mt-1">
             Configure multi-facility docks, storage racks, and operational thresholds.
           </p>
         </div>

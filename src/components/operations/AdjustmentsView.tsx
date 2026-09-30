@@ -67,19 +67,21 @@ export const AdjustmentsView: React.FC<AdjustmentsViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pt-2">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[11px] font-bold tracking-widest text-[#1e3a34] uppercase">
+            <span className="text-[11px] font-bold tracking-widest text-[#1e3a34] dark:text-[#d89ec5] uppercase">
               STOCK RECONCILIATION
             </span>
             <span className={`text-[10px] font-mono px-2 py-0.2 rounded-full font-semibold ${
-              !isManager ? 'bg-amber-100 text-amber-800' : 'bg-stone-200 text-stone-700'
+              !isManager
+                ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 dark:border dark:border-amber-800/40'
+                : 'bg-stone-200 text-stone-700 dark:bg-[#714B67]/35 dark:text-[#f0bfe5] dark:border dark:border-[#714B67]/40'
             }`}>
               {!isManager ? 'Staff Core Task: Physical Counting' : 'Manager Overview: Ledger Audit'}
             </span>
           </div>
-          <h1 className="text-3xl font-extrabold text-[#1c2a27] tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#1c2a27] dark:text-[#f8ecf5] tracking-tight">
             Inventory Adjustments
           </h1>
-          <p className="text-sm text-stone-600 mt-1">
+          <p className="text-sm text-stone-600 dark:text-slate-400 mt-1">
             {!isManager
               ? 'Count inventory on the warehouse floor and reconcile variance between physical racks and system ledger.'
               : 'Audit cycle counts and approve stock write-offs or discrepancy corrections.'}

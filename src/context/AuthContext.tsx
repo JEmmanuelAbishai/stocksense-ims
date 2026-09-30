@@ -72,12 +72,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.email) {
-          // If stored user was the old Alex account, automatically upgrade name to Dexter Morgan
-          if (parsed.id === 'usr-1' || parsed.email.includes('alex.morgan')) {
+          // If stored user is Dexter Morgan, ensure avatarUrl is /avatar.png
+          if (parsed.id === 'usr-1' || parsed.email.includes('dexter.morgan') || parsed.email.includes('alex.morgan')) {
             return {
               ...parsed,
               name: 'Dexter Morgan',
-              email: 'dexter.morgan@stocksense.io'
+              email: 'dexter.morgan@stocksense.io',
+              avatarUrl: '/avatar.png'
             };
           }
           return parsed;

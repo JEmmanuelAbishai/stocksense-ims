@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Soft drop shadow -->
+  <ellipse cx="32" cy="57" rx="24" ry="5" fill="#000000" fill-opacity="0.18" />
+
+  <!-- Top Face (Illuminated Kraft) -->
+  <path d="M32 6L58 20L32 34L6 20L32 6Z" fill="#F7CA82" stroke="#26170E" stroke-width="2.5" stroke-linejoin="round" />
+
+  <!-- Left Face (Midtone) -->
+  <path d="M6 20L32 34V58L6 44V20Z" fill="#DE9B4A" stroke="#26170E" stroke-width="2.5" stroke-linejoin="round" />
+
+  <!-- Right Face (Shadow) -->
+  <path d="M32 34L58 20V44L32 58V34Z" fill="#BA792E" stroke="#26170E" stroke-width="2.5" stroke-linejoin="round" />
+
+  <!-- Flap seam line on top -->
+  <line x1="32" y1="6" x2="32" y2="34" stroke="#8A5016" stroke-width="1.5" stroke-dasharray="2 1" opacity="0.6" />
+
+  <!-- Center Packing Tape on Top (Plum logistics branding) -->
+  <path d="M28 8.2L36 12.5L36 31.8L28 27.5Z" fill="#714B67" stroke="#3D2034" stroke-width="1.2" stroke-linejoin="round" />
+
+  <!-- Tape going over the front-facing corner -->
+  <path d="M28 27.5L32 29.6V45L28 42.8V27.5Z" fill="#5D3D54" stroke="#3D2034" stroke-width="1.2" stroke-linejoin="round" />
+  <path d="M32 29.6L36 27.5V42.8L32 45V29.6Z" fill="#4A2F43" stroke="#3D2034" stroke-width="1.2" stroke-linejoin="round" />
+
+  <!-- Shipping Label on Right Side -->
+  <path d="M38 33L50 26.5V40.5L38 47Z" fill="#FFFFFF" stroke="#26170E" stroke-width="1.2" stroke-linejoin="round" />
+
+  <!-- Barcode stripes on shipping label -->
+  <path d="M40 34.5L40 43.5M42 33.4L42 42.4M44 32.3L44 41.3M47 30.7L47 39.7M48.5 29.9L48.5 38.9" stroke="#1E293B" stroke-width="1.2" stroke-linecap="round" />
+
+  <!-- "THIS WAY UP" Arrows on Left Side -->
+  <path d="M15 36V28M12.5 30.5L15 28L17.5 30.5" stroke="#4A2C11" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M22 39.5V31.5M19.5 34L22 31.5L24.5 34" stroke="#4A2C11" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Corner protective reinforcement rivets / subtle highlights -->
+  <circle cx="32" cy="7.5" r="0.8" fill="#FFF2D6" />
+  <circle cx="56" cy="20.5" r="0.8" fill="#FFF2D6" />
+  <circle cx="8" cy="20.5" r="0.8" fill="#FFF2D6" />
+</svg>
