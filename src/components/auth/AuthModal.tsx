@@ -10,10 +10,12 @@ import {
   CheckCircle2,
   AlertCircle,
   Boxes,
-  ArrowRightLeft
+  ArrowRightLeft,
+  Globe
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types/inventory';
+import { COUNTRIES, getCountryByName } from '../../data/countries';
 
 export const AuthModal: React.FC = () => {
   const { login, signup, requestPasswordResetOtp, verifyOtpAndResetPassword } = useAuth();
@@ -23,6 +25,7 @@ export const AuthModal: React.FC = () => {
   const [loginId, setLoginId] = useState('dexter.morgan');
   const [email, setEmail] = useState('');
   const [signupRole, setSignupRole] = useState<UserRole>('inventory_manager');
+  const [signupCountry, setSignupCountry] = useState('United States');
   const [password, setPassword] = useState('••••••••••');
   const [reenterPassword, setReenterPassword] = useState('••••••••••');
   const [showPassword, setShowPassword] = useState(false);
@@ -57,7 +60,7 @@ export const AuthModal: React.FC = () => {
       setError('Email address is required.');
       return;
     }
-    const success = await signup(loginId, email, signupRole, 'wh-northdock');
+    const success = await signup(loginId, email, signupRole, 'wh-northdock', signupCountry);
     if (!success) {
       setError('Failed to create account.');
     }
@@ -346,6 +349,36 @@ export const AuthModal: React.FC = () => {
                         required
                       />
                     </div>
+                  </div>
+
+                  {/* Country & Currency Selection */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-semibold text-[#1c2a27]">
+                        Country / Facility Region *
+                      </label>
+                      <span className="text-[10px] text-emerald-800 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        Currency: {getCountryByName(signupCountry).currencySymbol} ({getCountryByName(signupCountry).currencyCode})
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <Globe className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <select
+                        value={signupCountry}
+                        onChange={(e) => setSignupCountry(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2 bg-white border border-stone-300 rounded-xl text-xs text-[#1c2a27] focus:outline-none focus:border-[#1e3a34] cursor-pointer"
+                        required
+                      >
+                        {COUNTRIES.map(c => (
+                          <option key={c.code} value={c.name}>
+                            {c.flag} {c.name} — {c.currencyName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <p className="text-[10px] text-stone-500 mt-1">
+                      Sets active inventory currency symbol ({getCountryByName(signupCountry).currencySymbol}) across catalog pricing & transactions.
+                    </p>
                   </div>
 
                   {/* Explicit Role Selection at Signup */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Sparkles, AlertCircle } from 'lucide-react';
 import { Product, UnitOfMeasure } from '../../types/inventory';
 import { useInventory } from '../../context/InventoryContext';
+import { useAuth } from '../../context/AuthContext';
 
 interface ProductFormModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
   productToEdit
 }) => {
   const { categories, warehouses, addProduct, updateProduct, generateSku } = useInventory();
+  const { currencySymbol } = useAuth();
 
   const isEditing = !!productToEdit;
 
@@ -216,7 +218,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
 
             {/* Cost & Sales Price */}
             <div>
-              <label className="block text-stone-700 font-semibold mb-1">Cost Price ($)</label>
+              <label className="block text-stone-700 font-semibold mb-1">Cost Price ({currencySymbol})</label>
               <input
                 type="number"
                 step="0.01"
@@ -228,7 +230,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-stone-700 font-semibold mb-1">Sales Price ($)</label>
+              <label className="block text-stone-700 font-semibold mb-1">Sales Price ({currencySymbol})</label>
               <input
                 type="number"
                 step="0.01"
