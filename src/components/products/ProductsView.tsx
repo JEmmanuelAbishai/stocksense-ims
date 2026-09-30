@@ -90,19 +90,19 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pt-2">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[11px] font-bold tracking-widest text-[#1e3a34] uppercase">
+            <span className="text-[11px] font-bold tracking-widest text-[#1e3a34] dark:text-[#d89ec5] uppercase">
               INVENTORY CATALOG
             </span>
             <span className={`text-[10px] font-mono px-2 py-0.2 rounded-full font-semibold ${
-              isManager ? 'bg-[#e5f3ed] text-[#1c644d]' : 'bg-amber-100 text-amber-800'
+              isManager ? 'bg-[#e5f3ed] text-[#1c644d] dark:bg-[#714B67]/30 dark:text-[#f0bfe5]' : 'bg-amber-100 text-amber-800'
             }`}>
               {isManager ? 'Manager View: SKUs & Valuation' : 'Staff View: Physical Stock & Racks'}
             </span>
           </div>
-          <h1 className="text-3xl font-extrabold text-[#1c2a27] tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#1c2a27] dark:text-[#f8ecf5] tracking-tight">
             Products
           </h1>
-          <p className="text-sm text-stone-600 mt-1">
+          <p className="text-sm text-stone-600 dark:text-slate-400 mt-1">
             {isManager
               ? 'Maintain SKU master definitions, safety stock thresholds, unit costs, and replenishment rules.'
               : 'Inspect physical stock quantities on hand, rack allocations, and locate items across warehouse bays.'}
@@ -151,7 +151,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             aria-label="Filter products by category"
-            className="bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-[#1c2a27] focus:outline-none focus:border-[#1e3a34] cursor-pointer"
+            className="bg-white dark:bg-[#172033] border border-stone-300 dark:border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-[#1c2a27] dark:text-[#f8ecf5] focus:outline-none focus:border-[#1e3a34] dark:focus:border-[#714B67] cursor-pointer"
           >
             <option value="all">All Categories</option>
             {categories.map(cat => (
@@ -161,15 +161,15 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         </div>
 
         {/* Status Filter Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-stone-200/70 rounded-xl text-xs">
+        <div className="flex items-center gap-1 p-1 bg-stone-200/70 dark:bg-[#172033] dark:border dark:border-slate-800 rounded-xl text-xs">
           {(['all', 'normal', 'low', 'out'] as const).map(st => (
             <button
               key={st}
               onClick={() => setStockStatusFilter(st)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer capitalize ${
                 stockStatusFilter === st
-                  ? 'bg-white text-[#1c2a27] font-semibold shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-white text-[#1c2a27] dark:bg-[#714B67] dark:text-white font-semibold shadow-xs'
+                  : 'text-stone-600 hover:text-stone-900 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
               }`}
             >
               {st === 'all' ? 'All' : st === 'normal' ? 'Adequate' : st === 'low' ? `Low (${lowCount})` : `Out (${outCount})`}

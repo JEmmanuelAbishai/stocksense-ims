@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   onOpenProfile
 }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, isDexterAccount } = useAuth();
   const { warehouses, filter, setFilter } = useInventory();
   const { isDark, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -137,12 +137,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               {currentUser?.role === 'inventory_manager' ? 'Inventory Manager' : 'Warehouse Staff'}
             </div>
           </div>
-          {/* Avatar circle matching DM initials */}
-          <div className="w-8 h-8 rounded-full bg-[#dcece7] dark:bg-[#5c3c54] text-[#1e3a34] dark:text-[#f8d7ee] font-bold text-xs flex items-center justify-center border border-white/30 shadow-xs shrink-0">
-            {currentUser?.name
-              ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
-              : 'DM'}
-          </div>
+          {/* Display profile picture ONLY for Dexter Morgan account, initials for others */}
+          {isDexterAccount ? (
+            <img
+              src="/avatar.png"
+              alt="Dexter Morgan"
+              className="w-8 h-8 rounded-full object-cover border border-white/40 shadow-xs shrink-0 bg-stone-200"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (!target.dataset.fallback) {
+                  target.dataset.fallback = 'true';
+                  target.src = '/avatar.jpeg';
+                }
+              }}
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-[#dcece7] dark:bg-[#5c3c54] text-[#1e3a34] dark:text-[#f8d7ee] font-bold text-xs flex items-center justify-center border border-white/30 shadow-xs shrink-0">
+              {currentUser?.name
+                ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+                : 'DM'}
+            </div>
+          )}
         </button>
 
         {/* Mobile menu toggle */}

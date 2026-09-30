@@ -62,11 +62,28 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         <div className="p-4 overflow-y-auto space-y-3.5 text-xs">
           {/* User Bio Card */}
           <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200/80 flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-[#1e3a34] text-white font-bold text-sm flex items-center justify-center border-2 border-white shadow-xs shrink-0">
-              {currentUser.name
-                ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
-                : 'DM'}
-            </div>
+            {isDexterAccount ? (
+              <div className="relative shrink-0">
+                <img
+                  src="/avatar.png"
+                  alt="Dexter Morgan"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs bg-stone-200"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (!target.dataset.fallback) {
+                      target.dataset.fallback = 'true';
+                      target.src = '/avatar.jpeg';
+                    }
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="w-11 h-11 rounded-full bg-[#1e3a34] text-white font-bold text-sm flex items-center justify-center border-2 border-white shadow-xs shrink-0">
+                {currentUser.name
+                  ? currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+                  : 'OP'}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-bold text-stone-900 truncate">{currentUser.name}</h3>
@@ -84,6 +101,11 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 <Building2 className="w-3 h-3 text-stone-400" />
                 <span>{currentWh?.name || 'North Dock Facility'}</span>
               </div>
+              {isDexterAccount && (
+                <div className="text-[10px] text-stone-400 font-mono mt-0.5">
+                  Avatar asset: avatar.png / avatar.jpeg
+                </div>
+              )}
             </div>
           </div>
 
